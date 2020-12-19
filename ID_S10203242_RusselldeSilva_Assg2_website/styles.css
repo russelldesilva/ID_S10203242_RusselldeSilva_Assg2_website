@@ -1,0 +1,26 @@
+.bus-timing, .fastest-route{
+    padding: 20px;
+}
+.bus-timing{border-right: solid 1px gray;}
+.fastest-route{border-left: solid 1px gray;}
+#time-btn, #route-btn{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-image:url("images/map.png");
+    width: 474px;
+    height: 474px;
+    padding: 0;
+    border: solid 1px gray;
+    border-radius: 50%;
+}
+#route{
+    width: 60%;
+    height: auto;
+    margin: auto;
+}
+#clock{
+    max-width: inherit;
+    height: auto;
+    margin: auto;
+}
