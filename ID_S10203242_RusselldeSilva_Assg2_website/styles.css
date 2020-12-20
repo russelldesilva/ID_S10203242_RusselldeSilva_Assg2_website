@@ -24,3 +24,33 @@
     height: auto;
     margin: auto;
 }
+#taking-so-long{padding-bottom:12px;}
+/*.bus-timings{margin-left: 0px;}*/
+#see-fastest{
+    display: flex;
+    flex-direction: column;
+    border: solid 1px #2699fb;
+    border-radius: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+a{text-decoration: none;}
+#red-circle{
+    height: 25px;
+    width: 25px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: red;
+}
+#yellow-circle{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color:gold;
+}
+#green-circle{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color:lightgreen;
+}
