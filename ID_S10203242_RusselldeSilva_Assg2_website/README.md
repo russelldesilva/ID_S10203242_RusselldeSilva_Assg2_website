@@ -1,32 +1,44 @@
-# Your Project's Name
+#  Bus App 2.0
 
-One or two paragraphs providing an overview of your project. Tell us about your project.
+I live in the eastern side of the island and have to travel all the way across to get to school. In order to reach school on time, I frequently use mobile apps to check the arrival times of buses and use this information to calculate the fastest route to take. Wouldn't it be simpler if we could let the computer do that for us? This application that I am developing would display the arrival times of buses as well as help the user calculate the fastest route to his/her destination. 
 
-Essentially, this part is your sales pitch.
+This app aims to make travelling even more convenient and allow users to make more educated decisions on what buses to take to get where they need to be by using real time data from APIs.
  
 ## Design Process
  
-Provide us insights about your design process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+I would be using 2 APIs for this application - LTA DataMall's Bus Arrival API for bus arrival timings and gothere.sg's Map API for calculating the fastest route to the destination.
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
+User Stories:
+As a user, I would like to check the bus arrival times to know when I should leave the house / calculate my ETA.
+As a user, I would like to know the fastest route to my destination. With multiple bus routes across the island, I may have different ways to get to the same place. Hence, I would like to know which way is fastest.
+As a user, I would like to see how crowded the buses are before they arrive so that I know whether I should get on or wait for another bus.
+As a user, I would like to know if the next bus arriving is wheelchair accessible so that I would know if I/my wheelchair-bound loved one can board.
 
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. 
-These files should themselves either be included as a pdf file in the project itself (in an separate directory)
-Include the Adobe XD wireframe as a folder. You can include the XD share url. 
+Wireframe:
+- https://xd.adobe.com/view/9e498eaa-1905-4dd3-bcac-5bfce634d633-cb1a/
+- Used wireframe kits to design wireframe (link: https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD)
+- Home Page:
+![index.html](screenshots/index.html.png)
+- Bus Timings:
+![bus-timings.html](screenshots/bus-timings.html.png)
+- Fastest Route:
+![fastest-route.html](screenshots/fastest-route.html.png)
+- Map:
+![map.html](screenshots/map.html.png)
+
+API links: 
+- LTA DataMall : https://www.mytransport.sg/content/mytransport/home/dataMall.html
+- gothere.sg : https://gothere.sg/api/maps/overview.html
 
 ## Features
-
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
  
 ### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+- Bus Arrival timings : Allows users to check the arrival times of the next 3 buses at a particular stop
+- Bus information : Allows users to see if the next buses are wheelchair accesible and how crowded they are
+- Fastest route : Allows users to find the fastest route to their destination via bus/train
 
 ### Features Left to Implement
-- Another feature idea
+- Save favourite bus stops : Allow users to save their most frequented bus stops to check bus arrival times / fastest way to and from there
 
 ## Technologies Used
 
@@ -35,16 +47,20 @@ In this section, you should mention all of the languages, frameworks, libraries,
 - [JQuery](https://jquery.com)
     - The project uses **JQuery** to simplify DOM manipulation.
 
+- [Bootstrap](https://getbootstrap.com/)
+    - This project uses **Bootstrap** to design CSS properties.
+
+- [LTA-DataMall](https://www.mytransport.sg/content/mytransport/home/dataMall.html)
+    - This project uses LTA DataMall APIs to display bus arrival times and information
+
+- [gothere.sg](https://gothere.sg/api/maps/overview.html)
+    - This project uses **gothere.sg**'s API to calculate and display the fastest route to one's destination via public transport
+- Used wireframe kits to design wireframe (link: https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD)
 
 ## Testing
 
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
-
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
+1. gothere.sg API:
+    1. When script is embeded into html document, an error occurs. ("A parser-blocking, cross site (i.e. different eTLD+1) script, <URL>, is invoked via document.write. The network request for this script MAY be blocked by the browser in this or a future page load due to poor network connectivity. If blocked in this page load, it will be confirmed in a subsequent console message. See <URL> for more details.")
 
 In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
 

@@ -2,79 +2,84 @@
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">    
         <link href = "styles.css" rel="stylesheet">
-      </head>
+    </head>
+    <nav aria-label="breadcrumb" class="container">
+      <ol class="breadcrumb" id = "special-nav">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Bus Timings</li>
+      </ol>
+    </nav>
     <body>
-        
-        <div class="container bus-timings">
-          <div class="row">
-            <div class="col">
-              <h1 id="taking-so-long">Why taking so long??</h1>
-              <form>
-                  <input type="search" placeholder="Search bus stops, bus numbers, places and streets" id = "search">
-              </form>
+      <div class="container bus-timings">
+        <div class="row">
+          <section class="col">
+            <h1 id="taking-so-long">Why taking so long??</h1>
+            <form>
+                <input type="search" placeholder="Search bus stops, bus numbers, places and streets" id = "search">
+            </form>
+          </section>
+          <section class="col-5">
+            <h1 class="bus-stop" id = "name">Orchard Road (<span id = "code">83831</span>)</h1>
+            <h5 id="theader">Time(min)</h5>
+            <table class="timing-table table">
+                <tbody>
+                    <tr>
+                      <th scope="row">40</th>
+                      <td>Arr</td>
+                      <td>15</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">48</th>
+                      <td>5</td>
+                      <td>8</td>
+                      <td>10</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>3</td>
+                      <td>5</td>
+                      <td>7</td>
+                    </tr>
+                  </tbody>
+            </table>
+            <div id="see-fastest" class="container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="44.502" height="30.94" viewBox="0 0 44.502 30.94">
+                <path id="Path_233" data-name="Path 233" d="M0,25.928,13.974,0,27.4,25.928" transform="translate(26.877 1.761) rotate(90)" fill="none" stroke="#2699fb" stroke-width="4"/>
+                <path id="Path_234" data-name="Path 234" d="M0,25.928,13.974,0,27.4,25.928" transform="translate(40.221 1.761) rotate(90)" fill="none" stroke="#2699fb" stroke-width="4"/>
+              </svg>
+              <a href="fastest-route.html">See the fastest route to your destination</a>
             </div>
-            <div class="col">
-              <h1 class="bus-stop" id = "name">Orchard Road (<span id = "code">83831</span>)</h1>
-              <h5>Time(min)</h5>
-              <table class="timing-table table">
-                  <tbody>
-                      <tr>
-                        <th scope="row">40</th>
-                        <td>Arr</td>
-                        <td>15</td>
-                        <td>30</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">48</th>
-                        <td>5</td>
-                        <td>8</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>3</td>
-                        <td>5</td>
-                        <td>7</td>
-                      </tr>
-                    </tbody>
-              </table>
-              <div id="see-fastest"  class="container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="44.502" height="30.94" viewBox="0 0 44.502 30.94">
-                  <path id="Path_233" data-name="Path 233" d="M0,25.928,13.974,0,27.4,25.928" transform="translate(26.877 1.761) rotate(90)" fill="none" stroke="#2699fb" stroke-width="4"/>
-                  <path id="Path_234" data-name="Path 234" d="M0,25.928,13.974,0,27.4,25.928" transform="translate(40.221 1.761) rotate(90)" fill="none" stroke="#2699fb" stroke-width="4"/>
-                </svg>
-                <a href="fastest-route.html">See the fastest route to your destination</a>
+          </section>
+          <section class="col-sm-2 align-self-center">
+            <div class="row">
+              <div class="col-sm-auto">
+                <div id = "red-circle"></div>
               </div>
-            </div>
-            <div class="col">
-              <div class="row">
-                <div class="col-sm-auto">
-                  <div id = "red-circle"></div>
-                </div>
-                <div class="col">
-                  <p>Full</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-auto">
-                  <div id = "yellow-circle"></div>
-                </div>
-                <div class="col">
-                  <p>Standing Only</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-auto">
-                  <div id = "green-circle"></div>
-                </div>
-                <div class="col">
-                  <p>Seats Available</p>
-                </div>
+              <div class="col">
+                <p>Full</p>
               </div>
             </div>
-          </div>
+            <div class="row">
+              <div class="col-sm-auto">
+                <div id = "yellow-circle"></div>
+              </div>
+              <div class="col">
+                <p>Standing Only</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-auto">
+                <div id = "green-circle"></div>
+              </div>
+              <div class="col">
+                <p>Seats Available</p>
+              </div>
+            </div>
+          </section>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-        <script src="script.js"></script>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+      <script src="script.js"></script>
     </body>
 </html>
