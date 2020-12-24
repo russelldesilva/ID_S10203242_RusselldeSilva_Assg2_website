@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" 
-  xmlns:v="urn:schemas-microsoft-com:vml">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
     <head>
         <link href = "styles.css" type="html/css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">    
@@ -15,28 +14,11 @@
         <div class="container">
             <div class="row">
                 <div id="map" style="width:500px;height:300px;"></div>
-                <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
-                <script type="text/javascript">
-                    gothere.load("maps");
-                    function initialize() {
-                        if (GBrowserIsCompatible()) {
-                        // Create the Gothere map object.
-                        var map = new GMap2(document.getElementById("map"));
-                        // Set the center of the map.
-                        map.setCenter(new GLatLng(1.362083, 103.819836), 11);
-                        // Add zoom controls on the top left of the map.
-                        map.addControl(new GSmallMapControl());
-                        // Add a scale bar at the bottom left of the map.
-                        map.addControl(new GScaleControl());
-                        }
-                    }
-                    gothere.setOnLoadCallback(initialize);
-                </script>
                 <section id = "directions" class="col">
-                    <p>Directions</p>
                 </section>
             </div>
         </div>
+        <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="script.js"></script>
     </body>
