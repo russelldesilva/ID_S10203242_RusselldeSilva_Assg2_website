@@ -70,3 +70,5 @@ a{text-decoration: none;}
     height: min-content;
     align-self: center;
 }
+
+#arrival {visibility: hidden;}
