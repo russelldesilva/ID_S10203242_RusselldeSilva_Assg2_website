@@ -64,17 +64,17 @@ In this section, you should mention all of the languages, frameworks, libraries,
 
 2. LTA DataMall API:
     2.1 Problem: I added a button with type = "submit". On click, the JS code would run for a split second before resetting to what it was before the click as submit buttons clear the form after submission. 
-    Solution: Change the button type to generic "button" so that it would not revert back to its state before the submission.    
+    2.1.1 Solution: Change the button type to generic "button" so that it would not revert back to its state before the submission.    
 
     2.2 Problem: When adding https://cors-anywhere.herokuapp.com/ to the endpoint, an error 400 occurs with the message "Header required". 
     Troubleshooting: 
     2.2.1 Test endpoint on postman, get error message: "Missing required request header. Must specify one of: origin,x-requested-with". According to this  forum (https://stackoverflow.com/questions/59272380/how-to-fix-the-missing-required-request-header-must-specify-one-of-origin-x-r) some sites block CORS. However, when CORS endpoint is removed, I get 400 bad request.
+    2.2.2 Solution: Added header "X-Requested-With": "XMLHttpRequest" and created seperate settings variable instead of putting it within $.ajax{} call. Removed unecessary headers.
+
+    2.3 Problem: The Bus Stops API only displays the first 500 records per request (To display more, use the $skip operator). Hence, given a particular bus stop code, I decided to loop through each group of 500 records until I found the corresponding bus stop. However, when I ran my code, this error appeared: SBOX_FATAL_MEMORY_EXCEEDED. This happens when the memoy consumption within the browser is so big that the tab crashes :(
+    2.3.1 Solution (Temporary): Use Postman and manually cycle through each record of 500 and find the code of the last bus stop within that response. Store these codes in a list boundary. Loop through each item in boundary. If the given code is <= boundary[i], $skip= i*500 to skip to the correct group of 500 records. However, this solution may not always work as the API may be changed as new bus stops are added.
 
 In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
-
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
 ## Credits
 

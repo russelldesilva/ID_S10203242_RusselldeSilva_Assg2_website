@@ -41,19 +41,17 @@ a{text-decoration: none;}
     width: 25px;
     margin: 0;
     border-radius: 50%;
-    background-color: red;
 }
 #yellow-circle{
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    background-color:gold;
 }
 #green-circle{
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    background-color:lightgreen;
+
 }
 #go{
     display: flex;

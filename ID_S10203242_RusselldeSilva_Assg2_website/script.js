@@ -64,8 +64,7 @@ $(document).ready(function() {
         console.log(estArrival);
         let diff = estArrival.getTime() - now.getTime();
         return diff;
-    }
-
+    };
     function roundOff(eta){
         if (eta != 'NaN'){
             let nMin = eta / 60000;
@@ -80,7 +79,7 @@ $(document).ready(function() {
         else {
             return false;
         }   
-    }
+    };
     function seats(load){
         if (load === 'SEA'){
             return "success";
@@ -91,7 +90,17 @@ $(document).ready(function() {
         else if (load === 'LSD'){
             return "danger";
         };
-    }
+    };
+    function initBusStopList(code,data){
+        let init = false;
+        for (let i = 0; i<(data.value).length;i++){
+            if (data.value[i].BusStopCode == code){
+                $('#name').html(`${data.value[i].Description}`);
+                init = true;
+            }
+        };
+        return init;
+    };
     //search and display bus timings on click
     $('body').on("click", "button", function(){
         $('.timing-table > tr,td,th').remove();
@@ -120,13 +129,13 @@ $(document).ready(function() {
                 thNew.setAttribute("id",`${i}`);
                 trNew.appendChild(thNew);
                 let tdNew1  = document.createElement("td");
-                tdNew1.setAttribute("class",`nextBus1 table-${seats(data.Services[i].NextBus.Load)}`);
+                tdNew1.setAttribute("class",`nextBus1 bg-${seats(data.Services[i].NextBus.Load)} text-white`);
                 tdNew1.setAttribute("id",`${i}`);
                 let tdNew2  = document.createElement("td");
-                tdNew2.setAttribute("class",`nextBus2 table-${seats(data.Services[i].NextBus2.Load)}`);
+                tdNew2.setAttribute("class",`nextBus2 bg-${seats(data.Services[i].NextBus2.Load)} text-white`);
                 tdNew2.setAttribute("id",`${i}`);
                 let tdNew3  = document.createElement("td");
-                tdNew3.setAttribute("class",`nextBus3 table-${seats(data.Services[i].NextBus3.Load)}`);
+                tdNew3.setAttribute("class",`nextBus3 bg-${seats(data.Services[i].NextBus3.Load)} text-white`);
                 tdNew3.setAttribute("id",`${i}`);
                 trNew.appendChild(tdNew1);
                 trNew.appendChild(tdNew2);
@@ -152,11 +161,12 @@ $(document).ready(function() {
             };
         });
 
-        /*let skip = 0;
+        let skip = 0;
         let init = false;
-        while (init === false){*/
+        let boundary = ['14039','22159','28091','43829','','','']
+        //while (init === false){
             var settings = {
-                "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=`,
+                "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=${skip}`,
                 "method": "GET",
                 "timeout": 0,
                 "headers": {
@@ -164,23 +174,46 @@ $(document).ready(function() {
                   "Access-Control-Allow-Origin": "*",
                   "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== "
                 },
-              };
+            };
               //ajax call for bus stop info API (to display bus stop name)
             $.ajax(settings)
             .done(function (data) {
-                for (let i = 0; i<(data.value).length;i++){
-                    if (data.value[i].BusStopCode == code){
-                        $('#name').html(`${data.value[i].Description}`);
-                        //init = true;
-                    }
-                };
-                /*if (init === false){
+                let init = initBusStopList(code,data);
+                if (init===false){
                     skip += 500;
-                };*/
+                };
             })
             .catch(function (response){
                 console.log(response);
             });
         //};
     });
+
+//---------- fastest-route.html ------------
+    let departure = $('#search.departure').val();
+    let arrival = $('#search.arrival').val();
+
+
+//--------------- map.html ------------------
+    // ---------------- Fastest Route (gothere.sg API) --------------
+    // {copied from "https://gothere.sg/api/maps/getting-started.html"
+    gothere.load("maps");
+        function initialize() {
+            if (GBrowserIsCompatible()) {
+            // Create the Gothere map object.
+            var map = new GMap2(document.getElementById("map"));
+            // Set the center of the map.
+            map.setCenter(new GLatLng(1.362083, 103.819836), 11);
+            // Add zoom controls on the top left of the map.
+            map.addControl(new GSmallMapControl());
+            // Add a scale bar at the bottom left of the map.
+            map.addControl(new GScaleControl());
+            // Create a directions object.
+            var directions = new GDirections(map, document.getElementById("panel"));
+            // Get public transport directions.
+            var options = {travelMode:G_TRAVEL_MODE_TRANSIT};
+            directions.load("from:orchard road to:changi airport", options);
+            }
+        }
+    gothere.setOnLoadCallback(initialize);
 });
