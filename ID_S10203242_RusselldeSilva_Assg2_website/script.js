@@ -3,13 +3,22 @@ function newPage(url){ //open new page in same tab
     tab.focus();
 }
 
+if (sessionStorage.getItem("clicked")){
+    sessionStorage.setItem("clicked",true);
+}
+//let clicked = false;
+let newLink = '<li class="breadcrumb-item"><a href="bus-timings.html">Bus Timings</a></li>';
+
 $("#clock").click(function(){newPage("bus-timings.html")});
-$("#route").click(function(){newPage("fastest-route.html")});
+$("#route").click(function(){
+    newPage("fastest-route.html")
+    sessionStorage.removeItem("clicked");
+});
 
 $("#see-fastest").hover( //change button color on hover
     function(){
         $(this).css({"background-color":"#2699fb",})
-        $("a").css({"color":"white"})
+        $("#fast-btn").css({"color":"white"})
         $("path").css({"stroke":"white"})
     }, 
     function(){
@@ -18,43 +27,12 @@ $("#see-fastest").hover( //change button color on hover
         $("path").css({"stroke":"#2699fb"})
     }
 );
-$("#see-fastest").click(function(){ //change page + update breadcrumb
+$("#see-fastest").click(function(){
     newPage("fastest-route.html");
-    document.onchange(function(){ // change breadcrumb nav to include prev page (bus-timings.html)
-        let newNav = document.createElement("li", {class : "breadcrumb-item"});
-        let newLink = Object.assign(document.createElement("a"), {href : "bus-timings.html", innerText : "Bus Timings"});
-        alert(newLink);
-        newNav.appendChild(newLink);
-        let list = document.getElementById("special-nav");
-        list.insertBefore(newNav, list.childNodes[1]);
-    });
-});
+    sessionStorage.removeItem("clicked");
+    sessionStorage.setItem("clicked",true);
+}); //change page + update breadcrumb
 $("#go").click(function(){newPage("map.html")});
-
-// ---------------- Fastest Route (gothere.sg API) --------------
-// {copied from "https://gothere.sg/api/maps/getting-started.html"
-/*gothere.load("maps");
-function initialize() {
-    if (GBrowserIsCompatible()) {
-    // Create the Gothere map object.
-    var map = new GMap2(document.getElementById("map"));
-    // Set the center of the map.
-    map.setCenter(new GLatLng(1.362083, 103.819836), 11);
-    // Add zoom controls on the top left of the map.
-    map.addControl(new GSmallMapControl());
-    // Add a scale bar at the bottom left of the map.
-    map.addControl(new GScaleControl());
-    }
-} 
-// }
-
-var directions = new GMap2(map, document.getElementById("directions"));
-const travel_m = {travelMode : G_TRAVEL_MODE_TRANSIT};
-directions.load("from:orchard road to:changi airport", travel_m);
-
-gothere.setOnLoadCallback(initialize);*/
-
-
 
 // ---------------- Bus Timings (LTA DataMall) ------------------
 $(document).ready(function() {
@@ -92,14 +70,13 @@ $(document).ready(function() {
         };
     };
     function initBusStopList(code,data){
-        let init = false;
         for (let i = 0; i<(data.value).length;i++){
             if (data.value[i].BusStopCode == code){
                 $('#name').html(`${data.value[i].Description}`);
-                init = true;
+                return data.value[i];
             }
         };
-        return init;
+        return false;
     };
     //search and display bus timings on click
     $('body').on("click", "button", function(){
@@ -160,37 +137,56 @@ $(document).ready(function() {
                 };
             };
         });
-
         let skip = 0;
         let init = false;
-        let boundary = ['14039','22159','28091','43829','','','']
+        let boundary = [14039,22159,28091,43829,47629,56031,64171,70281,83059,98149,99189];
+        for (let i = 0; i<boundary.length; i++){
+            if (boundary[i] >= parseInt(code)){
+                skip = i*500;
+                break;
+            }
+        }
         //while (init === false){
-            var settings = {
-                "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=${skip}`,
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                  "X-Requested-With": "XMLHttpRequest",
-                  "Access-Control-Allow-Origin": "*",
-                  "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== "
-                },
-            };
-              //ajax call for bus stop info API (to display bus stop name)
-            $.ajax(settings)
-            .done(function (data) {
-                let init = initBusStopList(code,data);
-                if (init===false){
-                    skip += 500;
-                };
-            })
-            .catch(function (response){
-                console.log(response);
-            });
+        var settings = {
+            "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=${skip}`,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "X-Requested-With": "XMLHttpRequest",
+                "Access-Control-Allow-Origin": "*",
+                "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== "
+            },
+        };
+            //ajax call for bus stop info API (to display bus stop name)
+        $.ajax(settings)
+        .done(function (data) {
+            let init = initBusStopList(code,data);
+            let latitude = init.Latitude;
+            let longtitude = init.Longitude; 
+            sessionStorage.setItem('latitude',latitude);
+            sessionStorage.setItem('longitude',longtitude);
+            /*if (init===false){
+                skip += 500;
+            };*/
+        })
+        .catch(function (response){
+            console.log(response);
+        });
         //};
     });
 
 //---------- fastest-route.html ------------
     let departure = $('#search.departure').val();
+    if (sessionStorage.getItem('clicked')){
+        $('#special-nav #home').after(newLink);
+        let latitude = sessionStorage.getItem('latitude');
+        let longitude = sessionStorage.getItem('longitude');
+        departure = `@${latitude},${longitude}`;
+    } else {
+        $('#special-nav').filter(":contains(newLink)").remove()
+    };
+    console.log(departure);
+
     let arrival = $('#search.arrival').val();
 
 
@@ -212,7 +208,7 @@ $(document).ready(function() {
             var directions = new GDirections(map, document.getElementById("panel"));
             // Get public transport directions.
             var options = {travelMode:G_TRAVEL_MODE_TRANSIT};
-            directions.load("from:orchard road to:changi airport", options);
+            directions.load(`from:${departure} to:${arrival}`, options);
             }
         }
     gothere.setOnLoadCallback(initialize);
