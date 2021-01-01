@@ -36,6 +36,7 @@ API links:
 - Bus Arrival timings : Allows users to check the arrival times of the next 3 buses at a particular stop
 - Bus information : Allows users to see if the next buses are wheelchair accesible and how crowded they are
 - Fastest route : Allows users to find the fastest route to their destination via bus/train
+- Dynamic Breadcrumb : Have a breadcrumb nav at the top of the page that chagnes based in the pages the user navigates from
 
 ### Features Left to Implement
 - Save favourite bus stops : Allow users to save their most frequented bus stops to check bus arrival times / fastest way to and from there
@@ -51,7 +52,7 @@ In this section, you should mention all of the languages, frameworks, libraries,
     - This project uses **Bootstrap** to design CSS properties.
 
 - [LTA-DataMall](https://www.mytransport.sg/content/mytransport/home/dataMall.html)
-    - This project uses LTA DataMall APIs to display bus arrival times and information
+    - This project uses **LTA DataMall** APIs to display bus arrival times and information
 
 - [gothere.sg](https://gothere.sg/api/maps/overview.html)
     - This project uses **gothere.sg**'s API to calculate and display the fastest route to one's destination via public transport
@@ -79,11 +80,9 @@ In addition, you should mention in this section how your project looks and works
 ## Credits
 
 ### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+
 
 ### Media
-- The photos used in this site were obtained from ...
 
 ### Acknowledgements
 
-- I received inspiration for this project from X
