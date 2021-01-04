@@ -36,6 +36,8 @@ $("#go").click(function(){newPage("map.html")});
 
 // ---------------- Bus Timings (LTA DataMall) ------------------
 $(document).ready(function() {
+    let boundary = [14039,22159,28091,43829,47629,56031,64171,70281,83059,98149,99189];
+    let skip = 0;
     function getETA(nextBus){ //find time diff between CPU time and bus arrival time
         let now = new Date();
         let estArrival = new Date(nextBus);
@@ -137,16 +139,101 @@ $(document).ready(function() {
                 };
             };
         });
-        let skip = 0;
         let init = false;
-        let boundary = [14039,22159,28091,43829,47629,56031,64171,70281,83059,98149,99189];
+        
         for (let i = 0; i<boundary.length; i++){
             if (boundary[i] >= parseInt(code)){
                 skip = i*500;
                 break;
             }
         }
-        //while (init === false){
+        /*while (init === false && skip < 5500){*/
+            var settings = {
+                "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=${skip}`,
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Access-Control-Allow-Origin": "*",
+                    "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== ",
+                    "Clear-Site-Data": "cache, cookies",
+                },
+            };
+                //ajax call for bus stop info API (to display bus stop name)
+            $.ajax(settings)
+            .done(function (data) {
+                let stopData = initBusStopList(code,data);
+                if (stopData != false){
+                    init = true;
+                    let description = stopData.Description;
+                    sessionStorage.setItem("desc",description);
+                };
+                /*if (init===false){
+                    skip += 500;
+                };*/
+                console.log(init);
+            })
+            .catch(function (response){
+                console.log(response);
+            });
+        //};
+    });
+
+//---------- fastest-route.html ------------
+    $('body').on("keyup","#search.departure", function(){
+        let dcode = $('#search.departure').val();
+        sessionStorage.setItem('dcode',dcode);
+        console.log(dcode);
+        if (sessionStorage.getItem('clicked')){
+            $('#special-nav #home').after(newLink);
+            let departure = sessionStorage.getItem("desc");
+            sessionStorage.setItem("departure",departure);
+        } else {
+            $('#special-nav').filter(":contains(newLink)").remove()
+            for (let i = 0; i<boundary.length; i++){
+                if (boundary[i] >= parseInt(dcode)){
+                    skip = i*500;
+                    break;
+                }
+            }
+            var settings = {
+                "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=${skip}`,
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Access-Control-Allow-Origin": "*",
+                    "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== ",
+                    "Clear-Site-Data": "cache, cookies",
+                },
+            };
+                //ajax call for bus stop info API (to display bus stop name)
+            $.ajax(settings)
+            .done(function (data) {
+                let stopData = initBusStopList(dcode,data);
+                if (stopData != false){
+                    let dlatitude = parseFloat(stopData.Latitude);
+                    let dlongitude = parseFloat(stopData.Longitude);
+                    let departure = JSON.stringify([dlatitude,dlongitude]);
+                    sessionStorage.setItem("departure",departure);
+                    console.log(departure);
+                };
+            });
+        };
+        //event.preventDefault();
+    });
+
+
+    $('#search.arrival').keyup(function(event){
+        let acode = $('#search.arrival').val();
+        sessionStorage.setItem('acode',acode);
+        console.log(acode);
+        for (let i = 0; i<boundary.length; i++){
+            if (boundary[i] >= parseInt(acode)){
+                skip = i*500;
+                break;
+            }
+        }
         var settings = {
             "url": `https://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/BusStops?$skip=${skip}`,
             "method": "GET",
@@ -154,46 +241,36 @@ $(document).ready(function() {
             "headers": {
                 "X-Requested-With": "XMLHttpRequest",
                 "Access-Control-Allow-Origin": "*",
-                "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== "
+                "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== ",
+                "Clear-Site-Data": "cache, cookies",
             },
         };
             //ajax call for bus stop info API (to display bus stop name)
         $.ajax(settings)
         .done(function (data) {
-            let init = initBusStopList(code,data);
-            let latitude = init.Latitude;
-            let longtitude = init.Longitude; 
-            sessionStorage.setItem('latitude',latitude);
-            sessionStorage.setItem('longitude',longtitude);
-            /*if (init===false){
-                skip += 500;
-            };*/
-        })
-        .catch(function (response){
-            console.log(response);
+            let stopData = initBusStopList(acode,data);
+            if (stopData != false){
+                let alatitude = parseFloat(stopData.Latitude);
+                let alongitude = parseFloat(stopData.Longitude);
+                let arrival = JSON.stringify([alatitude,alongitude]);
+                sessionStorage.setItem("arrival",arrival);
+                console.log(arrival);
+            };
         });
-        //};
+        //event.preventDefault();
     });
+    
 
-//---------- fastest-route.html ------------
-    let departure = $('#search.departure').val();
-    if (sessionStorage.getItem('clicked')){
-        $('#special-nav #home').after(newLink);
-        let latitude = sessionStorage.getItem('latitude');
-        let longitude = sessionStorage.getItem('longitude');
-        departure = `@${latitude},${longitude}`;
-    } else {
-        $('#special-nav').filter(":contains(newLink)").remove()
-    };
-    console.log(departure);
 
-    let arrival = $('#search.arrival').val();
+
+    
+ 
 
 
 //--------------- map.html ------------------
     // ---------------- Fastest Route (gothere.sg API) --------------
     // {copied from "https://gothere.sg/api/maps/getting-started.html"
-    gothere.load("maps");
+    /*gothere.load("maps");
         function initialize() {
             if (GBrowserIsCompatible()) {
             // Create the Gothere map object.
@@ -211,5 +288,5 @@ $(document).ready(function() {
             directions.load(`from:${departure} to:${arrival}`, options);
             }
         }
-    gothere.setOnLoadCallback(initialize);
+    gothere.setOnLoadCallback(initialize);*/
 });
