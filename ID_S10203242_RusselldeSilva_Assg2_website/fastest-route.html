@@ -15,7 +15,7 @@
                 <section class="col row justify-content-center">
                     <h1>Departure</h1>
                     <form class = "departure">
-                        <input type="search" placeholder="Enter bus stop code" id = "search" class="departure form-control">
+                        <input type="search" placeholder="Enter bus stop code" id = "search" class="departure form-control" maxlength="5" minlength="5" required>
                     </form>
                     <p class = "text-danger" id = "departure">Invalid bus stop code!</p>
                     <div class="spinner-border text-primary" id = "departure" role="status"></div>
@@ -24,7 +24,7 @@
                 <section class="col row justify-content-center">
                     <h1>Arrival</h1>
                     <form class = "arrival">
-                        <input type="search" placeholder="Enter bus stop code" id = "search" class="arrival form-control">
+                        <input type="search" placeholder="Enter bus stop code" id = "search" class="arrival form-control" maxlength="5" minlength="5" required>
                     </form>
                     <p class = "text-danger" id = "arrival">Invalid bus stop code!</p>
                     <div class="spinner-border text-primary" id = "arrival" role="status"></div>
