@@ -61,7 +61,8 @@ In this section, you should mention all of the languages, frameworks, libraries,
 ## Testing
 
 1. gothere.sg API:
-    1.1 When script is embeded into html document, an error occurs. ("A parser-blocking, cross site (i.e. different eTLD+1) script, <URL>, is invoked via document.write. The network request for this script MAY be blocked by the browser in this or a future page load due to poor network connectivity. If blocked in this page load, it will be confirmed in a subsequent console message. See <URL> for more details.")
+    1.1 Problem: When script is embeded into html document, an error occurs. ("A parser-blocking, cross site (i.e. different eTLD+1) script, <URL>, is invoked via document.write. The network request for this script MAY be blocked by the browser in this or a future page load due to poor network connectivity. If blocked in this page load, it will be confirmed in a subsequent console message. See <URL> for more details.")
+    1.1.1 Solution: This error only applies to networks with poor connectivity (2G netowrks and below). Since Singaporeans mostly use 3G or 4G, this should only a affect a small group of people.
 
 2. LTA DataMall API:
     2.1 Problem: I added a button with type = "submit". On click, the JS code would run for a split second before resetting to what it was before the click as submit buttons clear the form after submission. 

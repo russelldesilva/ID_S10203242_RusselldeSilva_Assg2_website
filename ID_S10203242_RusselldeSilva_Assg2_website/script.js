@@ -27,23 +27,23 @@ $("#see-fastest").hover( //change button color on hover
         $("path").css({"stroke":"#2699fb"})
     }
 );
-$("#see-fastest").click(function(){
-    newPage("fastest-route.html");
-    sessionStorage.removeItem("clicked");
-    sessionStorage.setItem("clicked",true);
-}); //change page + update breadcrumb
 $("#go").click(function(){newPage("map.html")});
 
 // ---------------- Bus Timings (LTA DataMall) ------------------
 $(document).ready(function() {
     let boundary = [14039,22159,28091,43829,47629,56031,64171,70281,83059,98149,99189];
     let skip = 0;
-    function getETA(nextBus){ //find time diff between CPU time and bus arrival time
+    function getInfo(nextBus){ //find time diff between CPU time and bus arrival time
         let now = new Date();
-        let estArrival = new Date(nextBus);
-        console.log(estArrival);
+        let estArrival = new Date(nextBus.EstimatedArrival);
         let diff = estArrival.getTime() - now.getTime();
-        return diff;
+        let feature = nextBus.Feature;
+        let wheelchair = "";
+        if (feature === 'WAB'){
+            wheelchair = '<img src = "images/Wheelchair_symbol.svg">';
+        };
+        let nextbusinfo = [diff,wheelchair];
+        return nextbusinfo;
     };
     function roundOff(eta){
         if (eta != 'NaN'){
@@ -90,7 +90,9 @@ $(document).ready(function() {
             "method": "GET",
             "timeout": 0,
             "headers": {
-              "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== "
+                "X-Requested-With": "XMLHttpRequest",
+                "Access-Control-Allow-Origin": "*",
+                "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== "
             },
           };
           //ajax call for bus timing API
@@ -121,21 +123,20 @@ $(document).ready(function() {
                 trNew.appendChild(tdNew3);
                 $('tbody').append(trNew);
                 $(`th.serviceNo#${i}`).html(`${data.Services[i].ServiceNo}`);
-                let eta1 = getETA(data.Services[i].NextBus.EstimatedArrival).toString();
-                let eta2 = getETA(data.Services[i].NextBus2.EstimatedArrival).toString();
-                let eta3 = getETA(data.Services[i].NextBus3.EstimatedArrival).toString();
-                console.log(eta1,eta2,eta3);
-                eta1 = roundOff(eta1);
-                eta2 = roundOff(eta2);
-                eta3 = roundOff(eta3);
-                if (eta1 != false){
-                    $(`td#${i}.nextBus1`).html(`${eta1}`);
+                let nextbus1 = getInfo(data.Services[i].NextBus);
+                let nextbus2 = getInfo(data.Services[i].NextBus2);
+                let nextbus3 = getInfo(data.Services[i].NextBus3);
+                nextbus1[0] = roundOff(nextbus1[0]);
+                nextbus2[0] = roundOff(nextbus2[0]);
+                nextbus3[0] = roundOff(nextbus3[0]);
+                if (nextbus1 != false){
+                    $(`td#${i}.nextBus1`).html(`${nextbus1[0]} ${nextbus1[1]}`);
                 };
-                if (eta2 != false){
-                    $(`td#${i}.nextBus2`).html(`${eta2}`);
+                if (nextbus2 != false){
+                    $(`td#${i}.nextBus2`).html(`${nextbus2[0]} ${nextbus2[1]}`);
                 };
-                if (eta3 != false){
-                    $(`td#${i}.nextBus3`).html(`${eta3}`);
+                if (nextbus3 != false){
+                    $(`td#${i}.nextBus3`).html(`${nextbus3[0]} ${nextbus3[1]}`);
                 };
             };
         });
@@ -156,7 +157,6 @@ $(document).ready(function() {
                     "X-Requested-With": "XMLHttpRequest",
                     "Access-Control-Allow-Origin": "*",
                     "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== ",
-                    "Clear-Site-Data": "cache, cookies",
                 },
             };
                 //ajax call for bus stop info API (to display bus stop name)
@@ -165,13 +165,18 @@ $(document).ready(function() {
                 let stopData = initBusStopList(code,data);
                 if (stopData != false){
                     init = true;
-                    let description = stopData.Description;
-                    sessionStorage.setItem("desc",description);
+                    $("#see-fastest").click(function(){
+                        newPage("fastest-route.html");
+                        sessionStorage.removeItem("clicked");
+                        sessionStorage.setItem("clicked",true);
+                        sessionStorage.setItem("code",code);
+                        stopDataStr = JSON.stringify(stopData);
+                        sessionStorage.setItem("stopData",stopDataStr);
+                    }); //change page + update breadcrumb
                 };
                 /*if (init===false){
                     skip += 500;
                 };*/
-                console.log(init);
             })
             .catch(function (response){
                 console.log(response);
@@ -181,15 +186,19 @@ $(document).ready(function() {
 
 //---------- fastest-route.html ------------
     $('body').on("keyup","#search.departure", function(){
-        let dcode = $('#search.departure').val();
-        sessionStorage.setItem('dcode',dcode);
-        console.log(dcode);
         if (sessionStorage.getItem('clicked')){
             $('#special-nav #home').after(newLink);
-            let departure = sessionStorage.getItem("desc");
+            let dcode = sessionStorage.getItem("code");
+            $('#search.departure').var(dcode);
+            let stopData = JSON.parse(sessionStorage.getItem("stopDataStr"));
+            let dlatitude = parseFloat(stopData.Latitude);
+            let dlongitude = parseFloat(stopData.Longitude);
+            let departure = JSON.stringify([dlatitude,dlongitude]);
             sessionStorage.setItem("departure",departure);
         } else {
             $('#special-nav').filter(":contains(newLink)").remove()
+            let dcode = $('#search.departure').val();
+            sessionStorage.setItem('dcode',dcode);
             for (let i = 0; i<boundary.length; i++){
                 if (boundary[i] >= parseInt(dcode)){
                     skip = i*500;
@@ -204,7 +213,6 @@ $(document).ready(function() {
                     "X-Requested-With": "XMLHttpRequest",
                     "Access-Control-Allow-Origin": "*",
                     "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== ",
-                    "Clear-Site-Data": "cache, cookies",
                 },
             };
                 //ajax call for bus stop info API (to display bus stop name)
@@ -224,7 +232,7 @@ $(document).ready(function() {
     });
 
 
-    $('#search.arrival').keyup(function(event){
+    $('#search.arrival').keyup(function(){
         let acode = $('#search.arrival').val();
         sessionStorage.setItem('acode',acode);
         console.log(acode);
@@ -242,7 +250,6 @@ $(document).ready(function() {
                 "X-Requested-With": "XMLHttpRequest",
                 "Access-Control-Allow-Origin": "*",
                 "AccountKey": "eGXZ5SGHSdGIRwjg2oCZOw== ",
-                "Clear-Site-Data": "cache, cookies",
             },
         };
             //ajax call for bus stop info API (to display bus stop name)
