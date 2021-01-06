@@ -98,5 +98,7 @@ a{text-decoration: none;}
 .text-danger{
     visibility: hidden;
     font-size: small;
+    margin-bottom: 0px;
 }
+#help{font-size: small;}
 form{margin-bottom: 0px;}

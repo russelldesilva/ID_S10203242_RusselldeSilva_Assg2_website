@@ -11,8 +11,10 @@
         </ol>
       </nav>
       <body>
-        <div id="map" style="width:500px;height:300px;"></div>
-        <section id="panel"></section>
+        <div class="container">
+          <section id="map"></section>
+          <section id="panel" class="row"></section>
+        </div>
         <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"> </script>
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="script.js" async="true"></script>
@@ -37,9 +39,11 @@
               var dlatlng = new GLatLng(departure[0],departure[1]);
               var alatlng = new GLatLng(arrival[0],arrival[1]);
               // Get public transport directions.
-              var options = {travelMode:G_TRAVEL_MODE_BUS};
+              var options = {
+                travelMode:G_TRAVEL_MODE_TRANSIT,
+                fastestRoute: true
+              };
               console.log(`from:${dlatlng} to:${alatlng}`);
-              //directions.load(`from:${dlatlng} to:${alatlng}`, options);
               directions.loadFromWaypoints([dlatlng,alatlng],options);
             }
           }
