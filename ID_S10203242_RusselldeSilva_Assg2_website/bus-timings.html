@@ -18,17 +18,19 @@
                 <input type="search" placeholder="Enter bus stop code" id = "search" class="form-control" maxlength="5" minlength="5" required>
                 <button type="submit">Submit</button>
             </form>
-            <p class = "text-danger" id = "search">Invalid bus stop code!</p>
+            <p class = "text-danger" id = "search">Invalid bus stop code!</p> <!--Error message [Hidden on load]-->
             <div class="search-results"></div>
           </section>
           <div class="w-100 d-block d-sm-block d-md-none"></div>
-          <section class="col" id="arrival">
+          <section class="col" id="arrival"> <!--script.js will insert more elements when form is submitted [Hidden on load]-->
             <h1 class="bus-stop"><span id = "name"></span> (<span id = "code"></span>)</h1>
             <h5 id="theader">Time(min)</h5>
             <table class="timing-table table">
                 <tbody>
                 </tbody>
             </table>
+            <!--when the div below is clicked, the breadcrumb nav on fastest-route.html and map.html changes to include a new link to bus-timings.html-->
+            <!--it also takes the value entered in the search input above and places it in the departure search input in fastest-route.html-->
             <div id="see-fastest" class="container">
               <svg xmlns="http://www.w3.org/2000/svg" width="44.502" height="30.94" viewBox="0 0 44.502 30.94">
                 <path id="Path_233" data-name="Path 233" d="M0,25.928,13.974,0,27.4,25.928" transform="translate(26.877 1.761) rotate(90)" fill="none" stroke="#2699fb" stroke-width="4"/>
