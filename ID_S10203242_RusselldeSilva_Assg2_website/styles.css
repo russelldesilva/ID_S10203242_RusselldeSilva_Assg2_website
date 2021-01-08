@@ -1,4 +1,6 @@
-@media screen and (max-width: 600px){
+/*media  queries*/
+/*change size of icons on index.html*/
+@media screen and (max-width: 600px){ 
     #time-btn, #route-btn{
         width: 250px;
         height: 250px;
@@ -26,6 +28,7 @@
     };
 }
 
+/*index.html*/
 .bus-timing, .fastest-route{
     padding: 20px;
 }
@@ -48,6 +51,8 @@
     height: auto;
     margin: auto;
 }
+
+/*bus-timings.html*/
 #taking-so-long{padding-bottom:12px;}
 #see-fastest{
     display: flex;
@@ -77,10 +82,13 @@ a{text-decoration: none;}
     border-radius: 50%;
 
 }
+
+#arrival{visibility: hidden;}
+
+/*fastext-route.html*/
 #go{
     display: flex;
     justify-content: center;
-    /*text-align: center;*/
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -92,13 +100,13 @@ a{text-decoration: none;}
     height: min-content;
     align-self: center;
 }
-
-#arrival {visibility: hidden;}
-.spinner-border{visibility: hidden;}
-.text-danger{
+/*hidden on load*/
+.spinner-border{visibility: hidden;} /* loading wheel - only displays while AJAX request is loading */
+.text-danger{ /* error message - only displays when user enters invalid bus stop code */
     visibility: hidden;
     font-size: small;
     margin-bottom: 0px;
 }
+/*--------------*/
 #help{font-size: small;}
 form{margin-bottom: 0px;}

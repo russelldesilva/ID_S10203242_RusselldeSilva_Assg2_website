@@ -5,7 +5,8 @@
     </head>
     <nav aria-label="breadcrumb" class="container">
         <ol class="breadcrumb" id = "special-nav">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item" id="home"><a href="index.html">Home</a></li>
+          <!--<li class="breadcrumb-item"><a href="bus-timings.html">Bus Timings</a></li>-->
           <li class="breadcrumb-item"><a href="fastest-route.html">Fastest Route</a></li>
           <li class="breadcrumb-item active" aria-current="page">Map</li>
         </ol>
@@ -34,8 +35,6 @@
               map.addControl(new GScaleControl());
               // Create a directions object.
               var directions = new GDirections(map, document.getElementById("panel"));
-              console.log(`${departure[0]}` + `${departure[1]}`);
-              console.log(`${arrival[0]}` + `${arrival[1]}`);
               var dlatlng = new GLatLng(departure[0],departure[1]);
               var alatlng = new GLatLng(arrival[0],arrival[1]);
               // Get public transport directions.
@@ -43,7 +42,6 @@
                 travelMode:G_TRAVEL_MODE_TRANSIT,
                 fastestRoute: true
               };
-              console.log(`from:${dlatlng} to:${alatlng}`);
               directions.loadFromWaypoints([dlatlng,alatlng],options);
             }
           }
