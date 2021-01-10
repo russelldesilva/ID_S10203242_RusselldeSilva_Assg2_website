@@ -55,12 +55,12 @@ API links:
 - [AdobeXD](https://www.adobe.com/sea/products/xd.html)
     - This project used **AdobeXD** to build the wireframe prototype of the final application
     - Also used to export images as svg to final application.
-    - Used [wireframe-kits] to design wireframe (https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD)
+    - Used [wireframe kits](https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD) to design wireframe
 
-- [Chrome] (https://www.google.com/intl/en_sg/chrome/)
+- [Chrome](https://www.google.com/intl/en_sg/chrome/)
     - This project was tested **using Google Chrome**
 
-- [Edge] (https://www.microsoft.com/en-us/edge)
+- [Edge](https://www.microsoft.com/en-us/edge)
     - It was also tested using **Microsoft Edge** 
 
 ## Testing
@@ -75,7 +75,7 @@ API links:
 
     2.2 Problem: When adding https://cors-anywhere.herokuapp.com/ to the endpoint, an error 400 occurs with the message "Header required". 
     Troubleshooting: 
-    2.2.1 Test endpoint on postman, get error message: "Missing required request header. Must specify one of: origin,x-requested-with". According to this [forum] (https://stackoverflow.com/questions/59272380/how-to-fix-the-missing-required-request-header-must-specify-one-of-origin-x-r) some sites block CORS. However, when CORS endpoint is removed, I get 400 bad request.
+    2.2.1 Test endpoint on postman, get error message: "Missing required request header. Must specify one of: origin,x-requested-with". According to this [forum](https://stackoverflow.com/questions/59272380/how-to-fix-the-missing-required-request-header-must-specify-one-of-origin-x-r) some sites block CORS. However, when CORS endpoint is removed, I get 400 bad request.
     2.2.2 Solution: Added header "X-Requested-With": "XMLHttpRequest" and created seperate settings variable instead of putting it within $.ajax{} call. Removed unecessary headers.
 
     2.3 Problem: The Bus Stops API only displays the first 500 records per request (To display more, use the $skip operator). Hence, given a particular bus stop code, I decided to loop through each group of 500 records until I found the corresponding bus stop. However, when I ran my code, this error appeared: SBOX_FATAL_MEMORY_EXCEEDED. This happens when the memoy consumption within the browser is so big that the tab crashes :(
@@ -88,8 +88,8 @@ API links:
 ## Credits
 Code References:
  - [JQuery Docs](https://api.jquery.com/)
- - [Bootstrap] (https://getbootstrap.com/docs/5.0/getting-started/introduction/)
- - For HTML, CSS and vanilla JS: ![w3schools] (https://www.w3schools.com/html/default.asp)
+ - [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+ - For HTML, CSS and vanilla JS: ![w3schools](https://www.w3schools.com/html/default.asp)
 - [Wireframe Kits](https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD)
 
 API Documentation:
