@@ -1,5 +1,5 @@
 function newPage(url){ //open new page in same tab
-    var tab = window.open(url,'_self');
+    var tab = window.open(url,'_self'); //adapted from Stackoverflow https://stackoverflow.com/questions/8454510/open-url-in-same-window-and-in-same-tab
     tab.focus();
 }
 
@@ -9,7 +9,7 @@ $("#clock").click(function(){newPage("bus-timings.html")}); //open bus-timings.h
 $("#route").click(function(){ 
     newPage("fastest-route.html") //open fastest-route.html when #route (index.html) is clicked
     sessionStorage.removeItem("clicked"); //restore back to default where sessionStorage.getItem("clicked") = null
-    $('#special-nav').filter(":contains(newLink)").remove()
+    $('#special-nav').filter(":contains(newLink)").remove() //adapted from JQuery docs https://api.jquery.com/remove/
 });
 
 $("#see-fastest").hover( //change button and text color on hover
