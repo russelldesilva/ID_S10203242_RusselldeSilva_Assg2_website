@@ -46,7 +46,7 @@ API links:
 - [Bootstrap](https://getbootstrap.com/)
     - This project uses **Bootstrap** to design CSS properties.
 
-- [LTA-DataMall](https://www.mytransport.sg/content/mytransport/home/dataMall.html)
+- [LTA DataMall](https://www.mytransport.sg/content/mytransport/home/dataMall.html)
     - This project uses **LTA DataMall** APIs to display bus arrival times and information
 
 - [gothere.sg](https://gothere.sg/api/maps/overview.html)
@@ -87,24 +87,15 @@ API links:
 
 ## Credits
 Code References:
- - [JQuery-Docs] (https://api.jquery.com/)
+ - [JQuery Docs](https://api.jquery.com/)
  - [Bootstrap] (https://getbootstrap.com/docs/5.0/getting-started/introduction/)
  - For HTML, CSS and vanilla JS: ![w3schools] (https://www.w3schools.com/html/default.asp)
-
-Wireframe Kits:
- - https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD
+- [Wireframe Kits](https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD)
 
 API Documentation:
 - [gothere.sg] (https://gothere.sg/api/maps/overview.html)
-- [LTA-DataMall] (https://www.mytransport.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf)
+- [LTA DataMall](https://www.mytransport.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf)
 
 Images:
- - [Wheelchair]
-
-### Content
-
-
-### Media
-
-### Acknowledgements
-
+ - [Wheelchair](https://www.flaticon.com/free-icon/wheelchair_25332?term=wheelchair&page=1&position=2) - Resized in AdobeXD and then exported as SVG
+ - All others from [UI kits](https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD) exported as SVG
