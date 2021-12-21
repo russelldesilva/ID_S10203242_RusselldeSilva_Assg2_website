@@ -93,7 +93,7 @@ Code References:
 - [Wireframe Kits](https://www.behance.net/gallery/55462459/Wires-wireframe-kits-for-Adobe-XD)
 
 API Documentation:
-- [gothere.sg] (https://gothere.sg/api/maps/overview.html)
+- [gothere.sg](https://gothere.sg/api/maps/overview.html)
 - [LTA DataMall](https://www.mytransport.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf)
 
 Images:
